@@ -1,0 +1,62 @@
+/*
+CS_4760
+Anthony Nguyen
+03/14/2022
+*/
+
+Semaphores and Message Passing
+
+PROJECT SPECIFICATION:
+
+The goal of this homework is to become familiar with semaphores in Linux. It is a repetition of your last project with the
+part that was handled by the bakery algorithm to be implemented by semaphores.
+You will again use multiple concurrent processes to write into a file at random times, solving the concurrency issues using
+semaphores for synchronization of processes. Your job is to create the environment such that two processes cannot write
+into the file simultaneously and yet, every process gets its turn to write into the file.
+
+
+Generate twenty processes using a master program, called master, and make them write into a file called cstest in their
+current working directory. Needless to say that all processes will use the same working directory. Each child process will
+be executed by an executable called slave. The message to be written into the file is:
+HH:MM:SS Queue nn File modified by process number xx
+where HH:MM:SS is the current system time, nn is the number the process picked when it entered its intention to write into
+the file, xx is the process number as specified by the master program. The value of xx is between 1 and 20. This implies
+that the child process will be run by the command
+slave xx
+The critical resource is the file cstest which should be updated by a child under exclusive control access. This implies
+that each slave will have a critical section that will control access to the file to write into it.
+
+The code for each slave should use the following template:
+for ( i = 0; i < 5; i++ )
+{
+    	execute code to enter critical section;
+	sleep for random amount of time (between 0 and 5 seconds); 
+	critical_section();
+	sleep for random amount of time (between 0 and 5 seconds); 
+	execute code to exit 	from critical section;
+}
+
+
+For this project, I did the following files:
+Master.cpp
+Slave.cpp
+Makefile
+README
+
+You must first create the executable program if trying to use this code. Use the 'make' command to create the 'master' executable.
+
+You must implement at least the following command line arguments:
+-h 
+For help
+-s n
+Which n is the number of  n slave processes at a time. 
+-t ss
+ Which ss is the maximum time in seconds after which the process should terminate itself if not completed
+-l filename
+Filename is the log file use( default output.out)
+-i y
+Which y determines how many times each slave should increment and write to the file before terminating 
+
+
+
+
